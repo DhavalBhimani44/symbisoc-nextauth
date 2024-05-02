@@ -1,9 +1,11 @@
 "use client";
+import Navbar from '@/components/Navbar';
 import SignUpForm from '@/components/form/SignUpForm';
 
 const page = () => {
   return (
     <div className='w-full h-full m-auto py-28 sm:py-4 md:py-12 lg:py-6 xl:py-8'>
+      <Navbar/>
       <SignUpForm/>
     </div>
   );
