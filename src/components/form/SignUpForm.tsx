@@ -23,6 +23,7 @@ import toast from 'react-hot-toast';
 type FormSchema = z.infer<typeof FormSchema>
 
 const SignUpForm = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -42,6 +43,7 @@ const SignUpForm = () => {
   }, []);
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    setIsLoading(true);
     try {
       await axios.post('api/user/sign-up', values);
       toast.success('User created successfully');
@@ -49,9 +51,9 @@ const SignUpForm = () => {
     } catch (error: any) {
       toast.error('User creation failed');
       console.log("Following error occured: ", error);
+    }finally {
+      setIsLoading(false);
     }
-
-    console.log(values);
   };
 
   return (
@@ -158,6 +160,7 @@ const SignUpForm = () => {
             <Button
               className='w-max text-md shadow-indigo-500/50 hover:shadow-indigo-500/50 shadow-md hover:shadow-lg bg-gradient-to-br from-fuchsia-500 to-cyan-500 hover:bg-gradient-to-tl hover:from-fuchsia-500 hover:to-cyan-500 transition duration-300 ease-in-out'
               type='submit'
+              isLoading={isLoading}
             >
               Sign up
             </Button>
@@ -168,7 +171,7 @@ const SignUpForm = () => {
         </div>
         <div className='flex justify-center items-center text-gray-600 my-2 text-sm'>
           <div className='text-slate-300'>
-            Already have an account ?, please&nbsp;
+            Already have an account?, please&nbsp;
             <Link className='text-blue-500 hover:underline' href='/sign-in'>
               Sign in
             </Link>

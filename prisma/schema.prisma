@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  PRN            String    @unique
-  email          String?   @unique
+  id             String              @id @default(auto()) @map("_id") @db.ObjectId
+  PRN            String              @unique
+  email          String?             @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  role           role      @default(STUDENT)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  role           role                @default(STUDENT)
+  registrations  EventRegistration[]
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
 
   accounts Account[]
 }
@@ -45,4 +46,35 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Event {
+  id                 String              @id @default(auto()) @map("_id") @db.ObjectId
+  title              String
+  description        String
+  banner             String?
+  date               DateTime
+  time               String
+  location           String
+  speaker            String
+  speakerDesignation String
+  organizingClub     String
+  organizingClubLogo String
+  registrations      EventRegistration[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EventRegistration {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  eventId          String   @db.ObjectId
+  userId           String   @db.ObjectId
+  registrationDate DateTime @default(now()) // Adding registration date field
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
 }

@@ -23,8 +23,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 type SignInForm = z.infer<typeof signInSchema>
 
 const SignInForm = () => {
-    const {data: session} = useSession()
-    const redirect = session?.user?.role.toLowerCase()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const router = useRouter();
     const [isVisible, setIsVisible] = useState(false);
     const form = useForm<z.infer<typeof signInSchema>>({
@@ -35,30 +34,39 @@ const SignInForm = () => {
             role: 'STUDENT',
         },
     });
-
+    
     useEffect(() => {
         setIsVisible(true);
     }, []);
 
     const onSubmit = async (values: z.infer<typeof signInSchema>) => {
+        setIsLoading(true)
         await signIn('credentials',{
-                email: values.email, 
-                password: values.password,
-                role: values.role,
-                redirect: false
-            })
-            .then((callback) => {
-                if (callback?.error) {
-                    toast.error(callback.error)
-                }
-
-                if (callback?.ok && !callback?.error) {
-                    toast.success('Logged in successfully!')
-                    router.push(`/${redirect}/profile`)
-                }
-            })
+            email: values.email, 
+            password: values.password,
+            role: values.role,
+            redirect: false
+        })
+        .then((callback) => {
+            if (callback?.error) {
+                toast.error(callback.error)
+            }
+            
+            if (callback?.ok && !callback?.error) {
+                toast.success('Logged in successfully!')
+                const roleRedirects: {[key: string]: string} = {
+                    STUDENT: "/student/profile",
+                    FACULTY: "/faculty/profile",
+                    CLUBINCHARGE: "/clubincharge/profile",
+                    ADMIN: "/admin/profile",
+                };
+                const redirectPath = roleRedirects[values.role] || "/";
+                router.push(redirectPath);            
+            }
+        })
+        .finally(() => setIsLoading(false))
     };
-
+    
     return (
         <div className={`w-fit lg:w-1/4 xl:w-1/4 m-auto px-4 sm:px-2 md:px-4 lg:px-4 xl:px-4 py-2 flex flex-col justify-center items-center shadow-lg z-1 bg-neutral-800 rounded-lg`}>
             <Form {...form}>
@@ -108,7 +116,7 @@ const SignInForm = () => {
                                         <FormLabel><div className='lg:text-xl sm:text-lg text-slate-200'>User Type</div></FormLabel>
                                         <FormControl>
                                             <Select {...field} onValueChange={(selectedValue) => form.setValue('role', selectedValue)}>
-                                                <SelectTrigger className="w-48 sm:w-56 md:w-56 lg:w-56 xl:w-64 shadow-lg bg-slate-200">
+                                                <SelectTrigger className="w-48 sm:w-56 md:w-56 lg:w-56 xl:w-64 shadow-lg bg-slate-200 text-black">
                                                     <SelectValue placeholder="User type" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -125,7 +133,7 @@ const SignInForm = () => {
                         </div>
                     </div>
                     <div className='flex flex-col w-full justify-center items-center mt-6'>
-                        <Button className='w-max text-md shadow-indigo-500/50 hover:shadow-indigo-500/50 shadow-md hover:shadow-lg bg-gradient-to-br from-fuchsia-500 to-cyan-500 hover:bg-gradient-to-tl hover:from-fuchsia-500 hover:to-cyan-500 transition duration-300 ease-in-out' type='submit'>
+                        <Button isLoading={isLoading} className='w-max text-md shadow-indigo-500/50 hover:shadow-indigo-500/50 shadow-md hover:shadow-lg bg-gradient-to-br from-fuchsia-500 to-cyan-500 hover:bg-gradient-to-tl hover:from-fuchsia-500 hover:to-cyan-500 transition duration-300 ease-in-out' type='submit'>
                             Sign in
                         </Button>
                     </div>
@@ -142,7 +150,6 @@ const SignInForm = () => {
                     </div>
                 </div>
             </Form>
-            <Button onClick={() => signOut()}>Sign out</Button>
         </div>
     );
 };
