@@ -9,6 +9,7 @@ import Mosaic from "@/components/CardContainer/Mosaic";
 import SpaceAstronomy from "@/components/CardContainer/SpaceAstronomy";
 import TPC from "@/components/CardContainer/TPC";
 import WWR from "@/components/CardContainer/WWR";
+import Footer from "@/components/Footer";
 import { Heading } from "@/components/Heading";
 import Navbar from "@/components/Navbar";
 import { BackgroundBeams } from "@/components/ui/background-beams";
@@ -85,6 +86,7 @@ export default function Home() {
         </div>
         <BackgroundBeams className="fixed"/>
       </main>
+      <Footer/>
     </>
   )
 }
