@@ -27,7 +27,7 @@ export default function RegisteredEventsCard() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get('/api/event/viewEvent');
+                const response = await axios.get('/api/event/registeredEvents');
                 console.log(response.data)
                 setEvents(response.data);
             } catch (error) {
@@ -43,8 +43,8 @@ export default function RegisteredEventsCard() {
     };
     return (
         <div className="">
-            {events.map((event: EventProps) => (
-                <Card key={event} className="flex bg-slate-700 text-neutral-950">
+            {events.map((event: EventProps, index) => (
+                <Card key={index} className="flex bg-slate-700 text-neutral-950">
                     <CardContent className="p-5">
                         <Image alt="banner" src='/banner.jpg' width={300} height={300} className="rounded-md" />
                     </CardContent>

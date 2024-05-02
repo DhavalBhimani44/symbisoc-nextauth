@@ -60,8 +60,8 @@ export default function ViewEventsCard() {
     };
     return (
         <div className="">
-            {events.map((event: EventProps) => (
-                <Card key={event} className="flex bg-slate-700 text-neutral-950">
+            {events.map((event: EventProps, index) => (
+                <Card key={index} className="flex bg-slate-700 text-neutral-950">
                     <CardContent className="p-5">
                         <Image alt="banner" src='/banner.jpg' width={300} height={300} className="rounded-md" />
                     </CardContent>
