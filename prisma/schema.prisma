@@ -59,7 +59,6 @@ model Event {
   speaker            String
   speakerDesignation String
   organizingClub     String
-  organizingClubLogo String
   registrations      EventRegistration[]
 
   createdAt DateTime @default(now())
@@ -75,6 +74,6 @@ model EventRegistration {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  event Event @relation(fields: [eventId], references: [id])
-  user  User  @relation(fields: [userId], references: [id])
+  event Event? @relation(fields: [eventId], references: [id])
+  user  User?  @relation(fields: [userId], references: [id])
 }

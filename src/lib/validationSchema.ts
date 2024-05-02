@@ -57,47 +57,33 @@ export const signInSchema = z.object({
 });
 
 export const eventSchema = z.object({
-    eventName: z
+    title: z
         .string()
         .min(1, 'Event name required'),
 
-    eventDescription: z
+    description: z
         .string()
         .min(1, "Event description required"),
 
-    organisingClub: z
+    organizingClub: z
         .string()
         .min(1, 'Organising Club required'),
 
-    eventDate: z
+    date: z
         .string(),
 
-    eventTime: z
+    time: z
         .string(),
 
-    eventVenue: z
+    location: z
         .string()
         .min(1, 'Event Venue required'),
 
-    eventPlatform: z
-        .string()
-        .min(1, 'Event Platform required'),
-
-    speakerName: z
+    speaker: z
         .string()
         .min(1, 'Speaker Name required'),
 
     speakerDesignation: z
         .string()
         .min(1, 'Speaker Designation required'),
-
-    speakerDescription: z
-        .string()
-        .optional(),
-
-    eventType1: z
-        .string(),
-
-    eventType2: z
-        .string(),
 });

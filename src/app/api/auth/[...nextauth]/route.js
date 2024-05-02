@@ -54,33 +54,23 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({token, user}) {
-      console.log("Entering jwt callback");
       if (user) {
-        console.log("User info available in jwt callback:", user);
         token.id = user.id;
         token.PRN = user.PRN;
         token.email = user.email;
         token.role = user.role;
         token.picture = user.image;
-      } else {
-        console.log("User is not defined in jwt callback.");
       }
-      console.log("Token after processing in jwt callback:", token);
       return token;
     },
     async session({session, token}) {
-      console.log("Entering session callback");
       if (token) {
-        console.log("Token info available in session callback:", token);
         session.user.id = token.id ?? session.user.id;
         session.user.PRN = token.PRN ?? session.user.PRN;
         session.user.email = token.email ?? session.user.email;
         session.user.role = token.role ?? session.user.role;
         session.user.image = token.picture ?? session.user.image;
-      } else {
-        console.log("Token is not defined in session callback.");
       }
-      console.log("Session after processing in session callback:", session);
       return session;
     },
   },
