@@ -4,8 +4,14 @@ export const FormSchema = z
     .object({
         PRN: z
             .string()
-            .min(1, 'PRN is required')
-            .max(11),
+            .min(11, 'PRN contains digit only!')
+            .max(11)
+            .refine((PRN) => {
+                const hasDigit = /\d/.test(PRN);
+                return hasDigit;
+            }, {
+                message: 'PRN must have 11 digits!',
+            }),
 
         email: z
             .string()
