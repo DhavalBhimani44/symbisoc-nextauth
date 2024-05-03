@@ -11,7 +11,7 @@ const Codex = () => {
                 translateZ="50"
                 className="text-xl font-bold text-neutral-600 dark:text-white"
                 >
-                CODEX(SIT's Coding Club)
+                CODEX(SIT&apos;s Coding Club)
                 </CardItem>
                 <CardItem translateZ="100" className="w-full mt-4">
                 <Image
@@ -27,7 +27,7 @@ const Codex = () => {
                 translateZ="60"
                 className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
                 >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus tempora iusto nulla repellat commodi laudantium officiis asperiores consequuntur sequi eius!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, nisi! Blanditiis, id fugit! Consequuntur neque veniam culpa soluta, voluptates natus.
                 </CardItem>
             </CardBody>
         </CardContainer>
