@@ -4,8 +4,11 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useState } from "react";
 
 const Navbar = () => {
+    const [isLoadingSignIn, setIsLoadingSignIn] = useState<boolean>(false);
+    const [isLoadingSignUp, setIsLoadingSignUp] = useState<boolean>(false);
     const router = useRouter();
     const { data: session, status } = useSession();
     const userImage = session?.user?.image!
@@ -20,10 +23,13 @@ const Navbar = () => {
     }
 
     const onSignIn = () => {
+        setIsLoadingSignIn(true);
         router.push('/sign-in');
+        
     };
 
     const onSignUp = () => {
+        setIsLoadingSignUp(true);
         router.push('/sign-up');
     };
 
@@ -54,8 +60,8 @@ const Navbar = () => {
                         </>
                     ) : (
                         <>
-                            <Button variant={"default"} className="w-fit text-neutral-950 hover:bg-transparent transition duration-500 ease-out hover:text-white hover:border-white" onClick={onSignIn}>Sign in</Button>
-                            <Button variant={"outline"} className="w-fit bg-neutral-950 text-white transition duration-500 ease-out hover:text-neutral-950 hover:bg-white" onClick={onSignUp}>Create an account</Button>
+                            <Button variant={"default"} className="w-fit text-neutral-950 hover:bg-transparent transition duration-500 ease-out hover:text-white hover:border-white" onClick={onSignIn} isLoading={isLoadingSignIn}>Sign in</Button>
+                            <Button variant={"outline"} className="w-fit bg-neutral-950 text-white transition duration-500 ease-out hover:text-neutral-950 hover:bg-white" onClick={onSignUp} isLoading={isLoadingSignUp}>Create an account</Button>
                         </>
                     )}
                 </div>

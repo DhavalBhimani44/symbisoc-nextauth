@@ -5,6 +5,6 @@ export const config = {
         "/student/:path*",
         "/clubincharge/:path*",
         "/faculty/:path*",
-        "/admimn/:path*",
+        "/admin/:path*",
     ] 
 }
