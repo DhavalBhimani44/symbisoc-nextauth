@@ -59,6 +59,29 @@ export default function ViewEventsCard() {
             setIsLoadingButton(false)
         }
     };
+    const handleDelete = async(eventId: number) => {
+        setIsLoadingDelete(true);
+        try {
+            const eventToDelete = events.find((event: Event) => event.id === eventId);
+            if (!eventToDelete) {
+                console.error('Event not found');
+                return;
+            }
+
+            await axios.delete('/api/event/deleteEvent', {
+                data: {
+                    id: eventId
+                }
+            });            
+            toast.success('Event deleted successfully');
+            setEvents(events.filter((event: Event) => event.id !== eventId));
+        } catch (error) {
+            console.error("Error deleting event:", error);
+            toast.error('Deletion failed');
+        } finally {
+            setIsLoadingDelete(false);
+        }
+    }
     return (
         <div className="">
             {events.map((event: EventProps, index) => (
@@ -88,7 +111,7 @@ export default function ViewEventsCard() {
                             </CardDescription>
                             <div className='flex justify-end gap-2'>
                                 {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'admin') && (
-                                    <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete}>Delete</Button>
+                                    <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
                                 )}
                                 {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'student') && (
                                     <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
