@@ -61,7 +61,7 @@ const UsersTab = () => {
 
     const handleEdit = (user: User) => {
         setFormData({
-            userId: user.userId,
+            userId: user.id,
             PRN: user.PRN,
             email: user.email,
             role: user.role
@@ -81,8 +81,8 @@ const UsersTab = () => {
         try {
             const response = await axios.put(`/api/user/updateUsers`, formData);
             const updatedUser = response.data.data;
-            setUsers(users.map(user => user.userId === updatedUser.userId ? updatedUser : user));
-            toast.success('User updated successfully')
+            setUsers(users.map(user => user.id === updatedUser.id ? updatedUser : user));
+            toast.success('User updated successfully');
             setFormData({
                 userId: "",
                 PRN: "",
@@ -96,6 +96,23 @@ const UsersTab = () => {
             setIsLoading(false);
         }
     }
+
+    const handleDelete = async (user: User) => {
+        try {
+          const userId = user.id;
+          console.log("user id: ", userId);
+          await axios.delete('/api/user/deleteUser', {
+            data: {
+                id: userId
+            }
+          });
+          toast.success('User deleted successfully');
+          // Update the users state after successful deletion
+          setUsers(users.filter(user => user.id !== userId));
+        } catch (error) {
+          console.error('Error deleting user:', error);
+        }
+      };
 
     const handleSearch = () => {
         const result = users.filter(user =>
@@ -203,6 +220,9 @@ const UsersTab = () => {
                                     <TableCell>
                                         <Button className="rounded-3xl" onClick={() => handleEdit(user)}>Edit</Button>
                                     </TableCell>
+                                    <TableCell>
+                                        <Button className="rounded-3xl" onClick={() => handleDelete(user)}>Delete</Button>
+                                    </TableCell>
                                 </TableRow>
                             )) : users.map((user: User) => (
                                 <TableRow key={user.userId} className="bg-gray-200 hover:bg-gray-300">
@@ -213,7 +233,7 @@ const UsersTab = () => {
                                         <Button className="rounded-3xl" onClick={() => handleEdit(user)}>Edit</Button>
                                     </TableCell>
                                     <TableCell>
-                                        <Button className="rounded-3xl">Delete</Button>
+                                        <Button className="rounded-3xl" onClick={() => handleDelete(user)}>Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
