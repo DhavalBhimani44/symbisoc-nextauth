@@ -58,9 +58,9 @@ export default function AddUsers() {
             {isLoading ? (
                 <Skeleton className="w-[350px] h-[250px] bg-slate-700" />
             ) : (
-                <Card className="w-auto bg-slate-700  ">
-                    <CardHeader className='text-3xl text-slate-900 font-bold'>Add Users</CardHeader>
-                    <div className='justify-center items-center mb-8 px-16'>
+                <Card className="w-auto bg-slate-700">
+                    <CardHeader className='text-3xl text-slate-200 font-semibold'>Add Users</CardHeader>
+                    <div className='justify-center items-center mb-8 px-16 text-slate-200'>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(handleAdd)}>
                                 <div className="flex w-1/4">
@@ -69,7 +69,7 @@ export default function AddUsers() {
                                         name="PRN"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg text-slate-900 font-semibold'>PRN</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg'>PRN</div></FormLabel>
                                                 <FormControl>
                                                     <Input className='w-48 sm:w-56 md:w-56 lg:w-56 xl:w-64 shadow-lg bg-slate-200 text-black' placeholder='PRN' {...field} />
                                                 </FormControl>
@@ -85,7 +85,7 @@ export default function AddUsers() {
                                         name='email'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg text-slate-900 font-semibold mt-2'>Email</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg mt-2'>Email</div></FormLabel>
                                                 <FormControl>
                                                     <Input className='w-48 sm:w-56 md:w-56 lg:w-56 xl:w-64 shadow-lg bg-slate-200 text-black' placeholder='mail@sitpune.edu.in' {...field} />
                                                 </FormControl>
@@ -101,7 +101,7 @@ export default function AddUsers() {
                                         name='password'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg flex w-1/2 text-slate-900 font-semibold mt-2'>Password</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg flex w-1/2 mt-2'>Password</div></FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         type='password'
@@ -122,7 +122,7 @@ export default function AddUsers() {
                                         name='confirmPassword'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg text-slate-900 font-semibold mt-2'>Re-enter Password</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg mt-2'>Re-enter Password</div></FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         placeholder='Re-Enter your password'
@@ -143,7 +143,7 @@ export default function AddUsers() {
                                         name='role'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg text-slate-900 font-semibold mt-2'>User Type</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg mt-2'>User Type</div></FormLabel>
                                                 <FormControl>
                                                     <Select {...field} onValueChange={(selectedValue) => form.setValue('role', selectedValue)}>
                                                         <SelectTrigger className="w-48 sm:w-56 md:w-56 lg:w-56 xl:w-64 shadow-lg bg-slate-200 text-black">
