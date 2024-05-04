@@ -1,4 +1,4 @@
-import ViewEventsCard from '@/components/Cards/ViewEvents'
+import ViewEventsCard from '@/components/Cards/UpcomingEvents'
 import React from 'react'
 
 export default function page() {
