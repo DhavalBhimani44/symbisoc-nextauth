@@ -25,6 +25,7 @@ export default function ViewEventsCard() {
     const router = useRouter();
     const [events, setEvents] = useState([]);
     const { data: session } = useSession()
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -32,9 +33,11 @@ export default function ViewEventsCard() {
                 const response = await axios.get('/api/event/viewEvent');
                 const currentDate = new Date();
                 setEvents(response.data.filter((event: Event) => new Date(event.date) > currentDate));
+                setLoading(false);
                 console.log(response.data)
             } catch (error) {
                 console.error('Error fetching events:', error);
+                setLoading(false);
             }
         };
         fetchEvents();
@@ -84,7 +87,7 @@ export default function ViewEventsCard() {
     }
     return (
         <div className="w-full">
-            {events.length === 0 ? (<div>No Upcoming Events</div>) : (events.map((event: EventProps, index) => (
+            {loading ? (<div>Loading Events</div>) : events.length === 0 ? (<div>You have not registered in upcoming events</div>) : (events.map((event: EventProps, index) => (
                 <Card key={index} className="flex flex-wrap bg-slate-700 text-neutral-950">
                     <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full sm:w-full md:w-full lg:w-1/3 xl:w-1/3 justify-center items-center'>
                         <CardContent className="p-5 flex justify-center items-center">
