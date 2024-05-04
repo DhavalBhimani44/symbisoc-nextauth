@@ -32,16 +32,16 @@ const Layout = ({ children }: LayoutProps) => {
     return (
         <div className="w-full min-h-screen flex flex-wrap bg-gray-900 text-gray-200">
             <div className="flex flex-col top-0 left-0 w-full sm:w-full md:w-full lg:w-1/5 xl:w-1/5 sticky bg-gray-800 h-fit sm:h-fit md:h-fit lg:h-screen xl:h-screen border-r rounded-r-xl">
-                <div className='fixed w-full sm:w-full md:w-full lg:w-1/5 xl:w-1/5 h-fit sm:h-fit md:h-fit lg:h-screen sl:h-screen'>
+                <div className='fixed w-full sm:w-full md:w-full lg:w-1/5 xl:w-1/5 h-fit sm:h-fit md:h-fit lg:h-screen xl:h-screen'>
                     <div className="flex items-center justify-around h-14 border-b border-gray-700 rounded-md bg-gray-800">
                         <div className='flex'>
                             <Link href='/' className='font-bold'>symbiSoc.</Link>
                         </div>
-                        <div className='flex lg:hidden' id='burger'>
+                        <div className='flex lg:hidden'>
                             <Button onClick={toggleDropdown}>Menu</Button>
                         </div>
                     </div>
-                    <div className={`overflow-y-auto overflow-x-hidden flex-grow lg:block xl:block bg-gray-800`} id='menu'>
+                    <div className={`overflow-y-auto overflow-x-hidden flex-grow lg:block xl:block bg-gray-800`}>
                         {isMenuOpen &&
                             <ul className="flex flex-col py-4 space-y-1">
                                 <li className="px-5">
