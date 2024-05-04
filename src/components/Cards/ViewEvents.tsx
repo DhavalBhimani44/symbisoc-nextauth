@@ -59,7 +59,7 @@ export default function ViewEventsCard() {
             setIsLoadingButton(false)
         }
     };
-    const handleDelete = async(eventId: number) => {
+    const handleDelete = async (eventId: number) => {
         setIsLoadingDelete(true);
         try {
             const eventToDelete = events.find((event: Event) => event.id === eventId);
@@ -72,7 +72,7 @@ export default function ViewEventsCard() {
                 data: {
                     id: eventId
                 }
-            });            
+            });
             toast.success('Event deleted successfully');
             setEvents(events.filter((event: Event) => event.id !== eventId));
         } catch (error) {
@@ -94,22 +94,24 @@ export default function ViewEventsCard() {
                             {event.title}
                         </CardHeader>
                         <div className='ml-6 font-medium'>
-                            <CardDescription className="text-slate-200 mt-3 text-md text-wrap">
-                                👀: {event.description}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📆: {formatDate(event.date)}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                🕐: {event.time}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📌: {event.location}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📢: {event.speaker}({event.speakerDesignation})
-                            </CardDescription>
-                            <div className='flex justify-end gap-2'>
+                            <div className='flex-col justify-start gap-2'>
+                                <CardDescription className="text-slate-200 mt-3 text-md text-wrap">
+                                    👀: {event.description}
+                                </CardDescription>
+                                <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                    📆: {formatDate(event.date)}
+                                </CardDescription>
+                                <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                    🕐: {event.time}
+                                </CardDescription>
+                                <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                    📌: {event.location}
+                                </CardDescription>
+                                <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                    📢: {event.speaker}({event.speakerDesignation})
+                                </CardDescription>
+                            </div>
+                            <div className='flex justify-start gap-2'>
                                 {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'admin') && (
                                     <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
                                 )}
