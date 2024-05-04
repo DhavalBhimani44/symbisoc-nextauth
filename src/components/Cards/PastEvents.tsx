@@ -27,7 +27,7 @@ interface Session {
         name?: string | null | undefined;
         email?: string | null | undefined;
         image?: string | null | undefined;
-        role?: string | null | undefined; 
+        role?: string | null | undefined;
     };
 }
 
@@ -43,7 +43,7 @@ export default function ViewEventsCard() {
         const fetchEvents = async () => {
             try {
                 const response = await axios.get('/api/event/viewEvent');
-                const currentDate = new Date();                
+                const currentDate = new Date();
                 setEvents(response.data.filter((event: EventProps) => new Date(event.date) <= currentDate));
                 console.log(response.data);
             } catch (error) {
@@ -72,7 +72,7 @@ export default function ViewEventsCard() {
             setIsLoadingButton(false)
         }
     };
-    const handleDelete = async(eventId: number) => {
+    const handleDelete = async (eventId: number) => {
         setIsLoadingDelete(true);
         try {
             const eventToDelete = events.find((event: EventProps) => event.id === eventId);
@@ -85,7 +85,7 @@ export default function ViewEventsCard() {
                 data: {
                     id: eventId
                 }
-            });            
+            });
             toast.success('Event deleted successfully');
             setEvents(events.filter((event: EventProps) => event.id !== eventId));
         } catch (error) {
@@ -98,45 +98,52 @@ export default function ViewEventsCard() {
     return (
         <div className="">
             {events.map((event: EventProps, index) => (
-                <Card key={index} className="flex bg-slate-700 text-neutral-950">
-                    <CardContent className="p-5">
-                        <Image alt="banner" src='/banner.jpg' width={300} height={300} className="rounded-md" />
-                    </CardContent>
-                    <CardContent>
-                        <CardHeader className='text-3xl font-bold'>
-                            {event.title}
-                        </CardHeader>
-                        <div className='ml-6 font-medium'>
-                            <CardDescription className="text-slate-200 mt-3 text-md text-wrap">
-                                👀: {event.description}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📆: {formatDate(event.date)}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                🕐: {event.time}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📌: {event.location}
-                            </CardDescription>
-                            <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
-                                📢: {event.speaker}({event.speakerDesignation})
-                            </CardDescription>
-                            <div className='flex justify-end gap-2'>
-                                {typedSession?.user?.role?.toLowerCase() === 'admin' && (
-                                    <PDFDownloadLink
-                                    document={<PdfDocument />}
-                                    fileName="report.pdf"
-                                  >
-                                    {({ loading}) =>
-                                      loading ? <Button><Loader2 className='animate-spin mt-4' size={18}/></Button> : <Button className='mt-4'>Download Report</Button>
-                                    }
-                                  </PDFDownloadLink>
-                                )}
+                <Card key={index} className="flex flex-wrap bg-slate-700 text-neutral-950">
+                    <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full sm:w-full md:w-full lg:w-1/3 xl:w-1/3 justify-center items-center'>
+                        <CardContent className="p-5 flex justify-center items-center">
+                            <Image alt="banner" src='/banner.jpg' width={300} height={300} className="rounded-md" />
+                        </CardContent>
+                    </div>
+                    <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/3 justify-start items-center'>
+                        <CardContent>
+                            <div className='flex flex-col justify-start'>
+                                <div className='flex-col justify-start'>
+                                    <CardHeader className='text-3xl font-bold'>
+                                        {event.title}
+                                    </CardHeader>
+                                </div>
+                                <div className='ml-6 font-medium flex-col justify-start'>
+                                    <CardDescription className="text-slate-200 mt-3 text-md text-wrap">
+                                        👀: {event.description}
+                                    </CardDescription>
+                                    <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                        📆: {formatDate(event.date)}
+                                    </CardDescription>
+                                    <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                        🕐: {event.time}
+                                    </CardDescription>
+                                    <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                        📌: {event.location}
+                                    </CardDescription>
+                                    <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
+                                        📢: {event.speaker}({event.speakerDesignation})
+                                    </CardDescription>
+                                    <div className='flex justify-start gap-2'>
+                                        {typedSession?.user?.role?.toLowerCase() === 'admin' && (
+                                            <PDFDownloadLink
+                                                document={<PdfDocument />}
+                                                fileName="report.pdf"
+                                            >
+                                                {({ loading }) =>
+                                                    loading ? <Button><Loader2 className='animate-spin mt-4' size={18} /></Button> : <Button className='mt-4'>Download Report</Button>
+                                                }
+                                            </PDFDownloadLink>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-                    </CardContent>
+                        </CardContent>
+                    </div>
                 </Card>
             ))}
         </div>
