@@ -63,7 +63,7 @@ export default function ViewEventsCard() {
     const handleDelete = async(eventId: number) => {
         setIsLoadingDelete(true);
         try {
-            const eventToDelete = events.find((event: Event) => event.id === eventId);
+            const eventToDelete = events.find((event: EventProps) => event.id === eventId);
             if (!eventToDelete) {
                 console.error('Event not found');
                 return;
@@ -75,7 +75,7 @@ export default function ViewEventsCard() {
                 }
             });            
             toast.success('Event deleted successfully');
-            setEvents(events.filter((event: Event) => event.id !== eventId));
+            setEvents(events.filter((event: EventProps) => event.id !== eventId));
         } catch (error) {
             console.error("Error deleting event:", error);
             toast.error('Deletion failed');
