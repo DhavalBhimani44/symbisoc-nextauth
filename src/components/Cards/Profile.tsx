@@ -72,35 +72,35 @@ const ProfileCard = () => {
     <div className="flex justify-center items-center">
       {isLoading ? (
         <Skeleton className="w-[350px] h-[250px] bg-slate-700" />
-      ) : (
-        <Card className="w-[350px] bg-slate-700">
-          <CardHeader className="flex">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-3xl font-bold text-slate-900">Profile</CardTitle>
-              <Avatar>
-                <AvatarImage src={userImage} />
-                <AvatarFallback>{getInitialAndUppercase(userEmail)}</AvatarFallback>
-              </Avatar>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              <div>
-                <span className="text-white text-base">PRN: </span>
-                <span className="text-emerald-400 text-base">{session?.user?.PRN}</span><br />
+      ) : (        
+          <Card className="w-[350px] bg-slate-700">
+            <CardHeader className="flex">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-3xl font-bold text-slate-900">Profile</CardTitle>
+                <Avatar>
+                  <AvatarImage src={userImage} />
+                  <AvatarFallback>{getInitialAndUppercase(userEmail)}</AvatarFallback>
+                </Avatar>
               </div>
-              <div className="mt-2">
-                <span className="text-white text-base">Name: </span>
-                <span className="text-emerald-400 text-base">{names?.firstName} {names?.lastName}</span><br />
-              </div>
-              <div className="mt-2">
-                <span className="text-white text-base">Email: </span>
-                <span className="text-emerald-400 text-base">{userEmail}</span><br />
-              </div>
-            </CardDescription>
-            <Button variant={'destructive'} className="mt-7 flex gap-1.5" isLoading={isLoadingButton} onClick={handleLogout}>Logout <LogOut size={18} /></Button>
-          </CardContent>
-        </Card>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                <div>
+                  <span className="text-white text-base">PRN: </span>
+                  <span className="text-emerald-400 text-base">{session?.user?.PRN}</span><br />
+                </div>
+                <div className="mt-2">
+                  <span className="text-white text-base">Name: </span>
+                  <span className="text-emerald-400 text-base">{names?.firstName} {names?.lastName}</span><br />
+                </div>
+                <div className="mt-2">
+                  <span className="text-white text-base">Email: </span>
+                  <span className="text-emerald-400 text-base">{userEmail}</span><br />
+                </div>
+              </CardDescription>
+              <Button variant={'destructive'} className="mt-7 flex gap-1.5" isLoading={isLoadingButton} onClick={handleLogout}>Logout <LogOut size={18} /></Button>
+            </CardContent>
+          </Card>        
       )}
     </div>
   );
