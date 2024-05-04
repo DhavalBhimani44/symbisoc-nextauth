@@ -50,13 +50,13 @@ const CreateEventForm = () => {
     return (
         <Card className="w-full items-center bg-slate-700 text-neutral-950 justify-center">
             <CardHeader >
-                <CardTitle className="text-3xl text-slate-900">Create Events</CardTitle>
-                <CardDescription className="text-md text-slate-900/90">Create Events easily using SymbiSoc.</CardDescription>
+                <CardTitle className="text-3xl text-slate-100">Create Events</CardTitle>
+                <CardDescription className="text-md text-zinc-400">Create Events easily using SymbiSoc.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className='w-full flex flex-col justify-center items-center py-1'>
-                        <div className="flex flex-col w-full min-h-full space-y-2 justify-center items-center">
+                        <div className="flex flex-col w-full min-h-full space-y-2 justify-center items-center text-slate-200">
                             <div className="flex flex-wrap w-full p-2 justify-around">
                                 <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
                                     <FormField
@@ -64,7 +64,7 @@ const CreateEventForm = () => {
                                         name='title'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Event Title</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Event Title</div></FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Event Title" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -79,7 +79,7 @@ const CreateEventForm = () => {
                                         name='description'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Event Description</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Event Description</div></FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Event Description" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -94,7 +94,7 @@ const CreateEventForm = () => {
                                         name='organizingClub'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg text-slate-900'>Organizing Club</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg'>Organizing Club</div></FormLabel>
                                                 <FormControl>
                                                 <Input placeholder="Organizing Club" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -110,7 +110,7 @@ const CreateEventForm = () => {
                                         name='date'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Event Date</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Event Date</div></FormLabel>
                                                 <FormControl>
                                                     <Input type="date" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -125,7 +125,7 @@ const CreateEventForm = () => {
                                         name='time'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Event Time</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Event Time</div></FormLabel>
                                                 <FormControl>
                                                     <Input type="time" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -140,7 +140,7 @@ const CreateEventForm = () => {
                                         name='location'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Event Venue</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Event Venue</div></FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Event Venue" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -157,7 +157,7 @@ const CreateEventForm = () => {
                                         name='speaker'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Speaker Name</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Speaker Name</div></FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Speaker Name" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
@@ -172,7 +172,7 @@ const CreateEventForm = () => {
                                         name='speakerDesignation'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg text-slate-900">Speaker Designation</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Speaker Designation</div></FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Speaker Designation" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
