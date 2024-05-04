@@ -1,4 +1,5 @@
 import prisma from '@/lib/db'
+import { sendUpcomingEventMail } from '@/lib/mailer';
 import { NextRequest,NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -18,6 +19,19 @@ export async function POST(request: NextRequest) {
                 speakerDesignation: body.speakerDesignation,
             },
         });
+
+        const organizingClub = body.organizingClub;
+        const emailType = "NEWEVENT";
+        const eventName = body.title;
+        const eventDate = body.date;
+        const eventTime = body.time;
+        const eventVenue = body.location;
+        const speakerName = body.speaker;
+        const speakerDesignation = body.speakerDesignation;
+
+        const emailResponse = await sendUpcomingEventMail({emailType, organizingClub, eventName, eventDate, eventTime, eventVenue
+        , speakerName, speakerDesignation});
+        console.log("Upcoming event details: ", emailResponse);
 
         return NextResponse.json({ event: newEvent, message: "Event created successfully" }, {status: 201});
     } catch (error) {

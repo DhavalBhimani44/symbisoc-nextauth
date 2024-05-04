@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { FormSchema } from "@/lib/validationSchema";
 import bcrypt from "bcrypt";
+import { sendRegistrationMail } from "@/lib/mailer";
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,6 +52,13 @@ export async function POST(request: NextRequest) {
         role: body.role,
       },
     });
+
+    const username=body.PRN;
+    const email=body.email;
+    const password=body.password;
+
+    const emailResponse = await sendRegistrationMail({email, emailType: "SIGNUP", username, password, userId: newUser.id});
+    console.log("Email response: ", emailResponse);
 
     return NextResponse.json(
       { user: newUser, message: "User created successfully" },
