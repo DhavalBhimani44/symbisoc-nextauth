@@ -7,6 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDocument from '@/components/PdfDocument';
+import { Loader2 } from 'lucide-react';
 
 interface EventProps {
     id: number;
@@ -19,6 +22,14 @@ interface EventProps {
     speakerDesignation: string;
 }
 
+interface Session {
+    user: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+        role?: string | null | undefined; 
+    };
+}
 
 export default function ViewEventsCard() {
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
@@ -26,13 +37,14 @@ export default function ViewEventsCard() {
     const router = useRouter();
     const [events, setEvents] = useState([]);
     const { data: session } = useSession()
+    const typedSession = session as Session
 
     useEffect(() => {
         const fetchEvents = async () => {
             try {
                 const response = await axios.get('/api/event/viewEvent');
                 const currentDate = new Date();                
-                setEvents(response.data.filter((event: Event) => new Date(event.date) <= currentDate));
+                setEvents(response.data.filter((event: EventProps) => new Date(event.date) <= currentDate));
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -52,7 +64,7 @@ export default function ViewEventsCard() {
                 id: eventId
             });
             toast.success('Registration successful');
-            router.push(`/${session?.user?.role.toLowerCase()}/registeredEvents`)
+            router.push(`/${typedSession?.user?.role?.toLowerCase()}/registeredEvents`)
         } catch (error) {
             console.error('Error registering for event:', error);
             toast.error('Registration failed');
@@ -63,7 +75,7 @@ export default function ViewEventsCard() {
     const handleDelete = async(eventId: number) => {
         setIsLoadingDelete(true);
         try {
-            const eventToDelete = events.find((event: Event) => event.id === eventId);
+            const eventToDelete = events.find((event: EventProps) => event.id === eventId);
             if (!eventToDelete) {
                 console.error('Event not found');
                 return;
@@ -75,7 +87,7 @@ export default function ViewEventsCard() {
                 }
             });            
             toast.success('Event deleted successfully');
-            setEvents(events.filter((event: Event) => event.id !== eventId));
+            setEvents(events.filter((event: EventProps) => event.id !== eventId));
         } catch (error) {
             console.error("Error deleting event:", error);
             toast.error('Deletion failed');
@@ -111,11 +123,15 @@ export default function ViewEventsCard() {
                                 📢: {event.speaker}({event.speakerDesignation})
                             </CardDescription>
                             <div className='flex justify-end gap-2'>
-                                {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'admin') && (
-                                    <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
-                                )}
-                                {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'student') && (
-                                    <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
+                                {typedSession?.user?.role?.toLowerCase() === 'admin' && (
+                                    <PDFDownloadLink
+                                    document={<PdfDocument />}
+                                    fileName="report.pdf"
+                                  >
+                                    {({ loading}) =>
+                                      loading ? <Button><Loader2 className='animate-spin mt-4' size={18}/></Button> : <Button className='mt-4'>Download Report</Button>
+                                    }
+                                  </PDFDownloadLink>
                                 )}
                             </div>
 
