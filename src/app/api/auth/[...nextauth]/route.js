@@ -41,6 +41,10 @@ export const authOptions = {
         if (!passwordMatch) {
           throw new Error("Incorrect password");
         }
+        const roleMatch = user.role === credentials.role;
+        if (!roleMatch) {
+          throw new Error("Incorrect role");
+        }
         console.log(user)
         return {
           id: user.id,
