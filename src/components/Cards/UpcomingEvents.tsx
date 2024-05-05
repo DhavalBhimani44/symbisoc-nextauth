@@ -19,12 +19,22 @@ interface EventProps {
     speakerDesignation: string;
 }
 
+interface Session {
+    user: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+        role?: string | null | undefined;
+    };
+}
+
 export default function ViewEventsCard() {
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
     const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false)
     const router = useRouter();
     const [events, setEvents] = useState([]);
     const { data: session } = useSession()
+    const typedSession = session as Session;
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -32,7 +42,7 @@ export default function ViewEventsCard() {
             try {
                 const response = await axios.get('/api/event/viewEvent');
                 const currentDate = new Date();
-                setEvents(response.data.filter((event: Event) => new Date(event.date) > currentDate));
+                setEvents(response.data.filter((event: EventProps) => new Date(event.date) > currentDate));
                 setLoading(false);
                 console.log(response.data)
             } catch (error) {
@@ -54,7 +64,7 @@ export default function ViewEventsCard() {
                 id: eventId
             });
             toast.success('Registration successful');
-            router.push(`/${session?.user?.role.toLowerCase()}/registeredEvents`)
+            router.push(`/${typedSession?.user?.role?.toLowerCase()}/registeredEvents`)
         } catch (error) {
             console.error('Error registering for event:', error);
             toast.error('Registration failed');
@@ -119,10 +129,10 @@ export default function ViewEventsCard() {
                                         📢: {event.speaker}({event.speakerDesignation})
                                     </CardDescription>
                                     <div className='flex justify-start gap-2'>
-                                        {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'admin') && (
+                                        {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
                                             <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
                                         )}
-                                        {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'student') && (
+                                        {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'student') && (
                                             <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
                                         )}
                                     </div>

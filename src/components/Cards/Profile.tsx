@@ -14,10 +14,21 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+interface Session {
+  user: {
+      name?: string | null | undefined;
+      email?: string | null | undefined;
+      image?: string | null | undefined;
+      role?: string | null | undefined;
+      PRN?: string | null | undefined;
+  };
+}
+
 const ProfileCard = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
   const { data: session } = useSession();
+  const typedSession = session as Session
   const userImage = session?.user?.image!;
   const userEmail = session?.user?.email!;
 
@@ -87,7 +98,7 @@ const ProfileCard = () => {
               <CardDescription>
                 <div>
                   <span className="text-white text-base">PRN: </span>
-                  <span className="text-emerald-400 text-base">{session?.user?.PRN}</span><br />
+                  <span className="text-emerald-400 text-base">{typedSession?.user?.PRN}</span><br />
                 </div>
                 <div className="mt-2">
                   <span className="text-white text-base">Name: </span>

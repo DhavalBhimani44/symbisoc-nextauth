@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '../ui/skeleton';
 
 interface EventProps {
     id: number;
@@ -19,12 +20,22 @@ interface EventProps {
     speakerDesignation: string;
 }
 
+interface Session {
+    user: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+        role?: string | null | undefined;
+    };
+}
+
 export default function ViewEventsCard() {
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
     const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false)
     const router = useRouter();
     const [events, setEvents] = useState([]);
     const { data: session } = useSession()
+    const typedSession = session as Session
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -53,7 +64,7 @@ export default function ViewEventsCard() {
                 id: eventId
             });
             toast.success('Registration successful');
-            router.push(`/${session?.user?.role.toLowerCase()}/registeredEvents`)
+            router.push(`/${typedSession?.user?.role?.toLowerCase()}/registeredEvents`)
         } catch (error) {
             console.error('Error registering for event:', error);
             toast.error('Registration failed');
@@ -64,7 +75,7 @@ export default function ViewEventsCard() {
     const handleDelete = async (eventId: number) => {
         setIsLoadingDelete(true);
         try {
-            const eventToDelete = events.find((event: Event) => event.id === eventId);
+            const eventToDelete = events.find((event: EventProps) => event.id === eventId);
             if (!eventToDelete) {
                 console.error('Event not found');
                 return;
@@ -76,7 +87,7 @@ export default function ViewEventsCard() {
                 }
             });
             toast.success('Event deleted successfully');
-            setEvents(events.filter((event: Event) => event.id !== eventId));
+            setEvents(events.filter((event: EventProps) => event.id !== eventId));
         } catch (error) {
             console.error("Error deleting event:", error);
             toast.error('Deletion failed');
@@ -86,7 +97,7 @@ export default function ViewEventsCard() {
     }
     return (
         <div className="w-full">
-            {loading ? (<div>Loading Events</div>) : events.length === 0 ? (<div>You have not registered in upcoming events</div>) : (events.map((event: EventProps, index) => (
+            {loading ? (<Skeleton className="w-full h-[350px] bg-slate-700"/>) : events.length === 0 ? (<div>You have not registered in upcoming events</div>) : (events.map((event: EventProps, index) => (
                 <Card key={index} className="flex flex-wrap bg-slate-700 text-neutral-950">
                     <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full sm:w-full md:w-full lg:w-1/3 xl:w-1/3 justify-center items-center'>
                         <CardContent className="p-5 flex justify-center items-center">
@@ -120,10 +131,10 @@ export default function ViewEventsCard() {
                                         </CardDescription>
                                     </div>
                                     <div className='flex justify-start gap-2'>
-                                        {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'admin') && (
+                                        {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
                                             <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
                                         )}
-                                        {(session?.user?.role.toLowerCase() === 'clubincharge' || session?.user?.role.toLowerCase() === 'student') && (
+                                        {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'student') && (
                                             <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
                                         )}
                                     </div>
