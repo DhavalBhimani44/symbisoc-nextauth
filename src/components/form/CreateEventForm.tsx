@@ -14,10 +14,21 @@ import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { useSession } from "next-auth/react";
 
+interface Session {
+    user: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+        role?: string | null | undefined;
+        PRN?: string | null | undefined;
+    };
+  }
+
 type CreateEventForm = z.infer<typeof eventSchema>;
 
 const CreateEventForm = () => {
-    const {data: session} = useSession()
+    const {data: session} = useSession();
+    const typedSession = session as Session;
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
     const router = useRouter();
     const form = useForm<z.infer<typeof eventSchema>>({
@@ -42,7 +53,7 @@ const CreateEventForm = () => {
             };
             await axios.post('/api/event/createEvent', formattedValues);
             toast.success('Event created successfully');
-            router.push(`/${session?.user?.role?.toLowerCase()}/viewEvents`);
+            router.push(`/${typedSession?.user?.role?.toLowerCase()}/viewEvents`);
         } catch (error: any) {
             toast.error(error.message)
             console.log("Following error occured: ", error)
