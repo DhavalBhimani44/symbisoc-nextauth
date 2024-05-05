@@ -92,4 +92,5 @@ export const eventSchema = z.object({
     speakerDesignation: z
         .string()
         .min(1, 'Speaker Designation required'),
+    
 });

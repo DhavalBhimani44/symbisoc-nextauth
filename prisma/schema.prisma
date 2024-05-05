@@ -67,10 +67,12 @@ model Event {
   facultyMail        String?
   course             String?
   batch              String?
+  branch             String?
   copo               String?
+  academicyear       String?
   semester           semester        @default(ODD)
-  academicyear       academicyear       @default(FIRSTYEAR)
-  division           division   @default(A)
+  year               year            @default(FIRSTYEAR)
+  division           division        @default(A)
 
   registrations      EventRegistration[]
 
@@ -83,7 +85,7 @@ enum semester {
   EVEN
 }
 
-enum academicyear {
+enum year {
   FIRSTYEAR
   SECONDYEAR
   THIRDYEAR

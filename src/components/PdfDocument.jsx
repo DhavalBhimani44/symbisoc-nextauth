@@ -64,6 +64,11 @@ const styles = StyleSheet.create({
 });
 
 export default function PdfDocument({ eventData }) {
+  const formatDate = () => {
+    const date = new Date(eventData.date);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+  };
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -76,41 +81,41 @@ export default function PdfDocument({ eventData }) {
           Department of Computer Science & Enginnering/Information Technology
         </Text>
         <Text style={styles.text1}>
-          Student Development Program Report on &apos;topic&apos;
+          Student Development Program Report on &apos;{eventData.title}&apos;
         </Text>
         <View style={styles.section}>
-          <Text style={styles.heading}>Details about the event {eventData.title}</Text>
-          <Text style={styles.text}>Conduction Date - {eventData.date}</Text>
+          <Text style={styles.heading}>Details about the event</Text>
+          <Text style={styles.text}>Conduction Date - {formatDate(eventData.date)}</Text>
           <Text style={styles.text}>Time(Duration) - {eventData.time}</Text>
           <Text style={styles.text}>Venue - {eventData.location}</Text>
-          <Text style={styles.text}>Attended by (Batch with Branch )  - </Text>
+          <Text style={styles.text}>Attended by (Batch with Branch )  - {eventData.batch} ({eventData.branch})</Text>
           <Text style={styles.text}>No. Of. Student attended the session - </Text>
           <Text style={styles.text}>No. Of. Staff attended the session - </Text>
-          <Text style={styles.text}>Arranged by (Faculty name with mail id and contact details) - </Text>
+          <Text style={styles.text}>Arranged by (Faculty name with mail id and contact details) - {eventData.faculty} {eventData.facultyMail}/{eventData.facultyContact}</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.heading}>Details about the course</Text>
-          <Text style={styles.text}>Course Name - </Text>
-          <Text style={styles.text}>Batch - </Text>
-          <Text style={styles.text}>Year and Division  - </Text>
-          <Text style={styles.text}>CO and PO (Mention Numbers)   - </Text>
-          <Text style={styles.text}>Semester (ODD/Even) - </Text>
-          <Text style={styles.text}>Academic Year - </Text>
+          <Text style={styles.text}>Course Name - {eventData.course}</Text>
+          <Text style={styles.text}>Batch - {eventData.batch}</Text>
+          <Text style={styles.text}>Year and Division  - {eventData.year} - {eventData.division}</Text>
+          <Text style={styles.text}>CO and PO (Mention Numbers) - {eventData.copo}</Text>
+          <Text style={styles.text}>Semester (ODD/Even) - {eventData.semester}</Text>
+          <Text style={styles.text}>Academic Year - {eventData.academicyear}</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.heading}>About the Speaker</Text>
-          <Text style={styles.text}>Name - </Text>
-          <Text style={styles.text}>Company Name - </Text>
-          <Text style={styles.text}>Designation  - </Text>
-          <Text style={styles.text}>Contact Details(mail id and contact number)  - </Text>
+          <Text style={styles.text}>Name - {eventData.speaker}</Text>
+          <Text style={styles.text}>Company Name - {eventData.speakerCompany}</Text>
+          <Text style={styles.text}>Designation  - {eventData.speakerDesignation}</Text>
+          <Text style={styles.text}>Contact Details(mail id and contact number) - {eventData.speakerMail}/{eventData.speakerContact}</Text>
         </View>
         <View style={styles.section}>
-          <Text style={styles.heading1}>Event Report:</Text>
-          <Text style={styles.text}>Description: </Text>
+          <Text style={styles.heading1}>Event Report: Accepted</Text>
+          <Text style={styles.text}>Description: {eventData.description}</Text>
           <Text style={styles.text}>Photos: </Text>
         </View>
         <View style={styles.section}>
-          <Text style={styles.heading1}>Students Feedback:</Text>
+          <Text style={styles.heading1}>Students Feedback: Event was very informative and the speaker flawlessly delievered the concepts in an easy to understand manner. All in all, excellent work by the organising committee</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.heading1}>Attendace Sheet Photos:</Text>

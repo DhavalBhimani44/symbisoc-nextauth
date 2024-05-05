@@ -229,6 +229,21 @@ const CreateEventForm = () => {
                                         )}
                                     />
                                 </div>
+                                <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
+                                    <FormField
+                                        control={form.control}
+                                        name='academicyear'
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Academic Year</div></FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Academic Year" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
                             </div>
                             <div className="flex flex-wrap w-full p-2 justify-around">
                                 <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
@@ -311,12 +326,12 @@ const CreateEventForm = () => {
                                 <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
                                     <FormField
                                         control={form.control}
-                                        name='copo'
+                                        name='branch'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className="lg:text-xl sm:text-lg">CO and PO numbers</div></FormLabel>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">Branch</div></FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="CO/PO" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
+                                                    <Input placeholder="22-26" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -350,14 +365,14 @@ const CreateEventForm = () => {
                                 <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
                                     <FormField
                                         control={form.control}
-                                        name='academicyear'
+                                        name='year'
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel><div className='lg:text-xl sm:text-lg'>Academic Year</div></FormLabel>
+                                                <FormLabel><div className='lg:text-xl sm:text-lg'>Year</div></FormLabel>
                                                 <FormControl>
-                                                    <Select {...field} onValueChange={(selectedValue) => form.setValue('academicyear', selectedValue)}>
+                                                    <Select {...field} onValueChange={(selectedValue) => form.setValue('year', selectedValue)}>
                                                         <SelectTrigger className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900">
-                                                            <SelectValue placeholder="Academic Year" />
+                                                            <SelectValue placeholder="Year" />
                                                         </SelectTrigger>
                                                         <SelectContent>
                                                             <SelectItem value="FIRSTYEAR">1st Year</SelectItem>
@@ -391,6 +406,23 @@ const CreateEventForm = () => {
                                                         </SelectContent>
                                                     </Select>
                                                 </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap w-full p-2 justify-around">
+                                <div className='flex w-fit sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 mt-2 justify-center items-center'>
+                                    <FormField
+                                        control={form.control}
+                                        name='copo'
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel><div className="lg:text-xl sm:text-lg">CO and PO numbers</div></FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="CO/PO" className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900" {...field} />
+                                                </FormControl>
+                                                <FormMessage />
                                             </FormItem>
                                         )}
                                     />

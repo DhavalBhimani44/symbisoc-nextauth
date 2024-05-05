@@ -20,6 +20,19 @@ interface EventProps {
     location: string;
     speaker: string;
     speakerDesignation: string;
+    speakerCompany: string;
+    speakerMail: string;
+    speakerContact: string;
+    faculty: string;
+    facultyMail: string;
+    facultyContact: string;
+    copo: string;
+    batch: string;
+    course: string;
+    academicyear: string;
+    semester: 'ODD';
+    year: 'FIRSTYEAR';
+    division: 'A';
 }
 
 interface Session {

@@ -1,9 +1,9 @@
 import nodemailer from 'nodemailer';
 import prisma from "@/lib/db";
 
-export const sendRegistrationMail = async({email, emailType, username, password, userId} : any) => {
-    try {        
-        if(emailType === "SIGNUP") {
+export const sendRegistrationMail = async ({ email, emailType, username, password, userId }: any) => {
+    try {
+        if (emailType === "SIGNUP") {
             await prisma.user.findUnique({
                 where: {
                     id: userId
@@ -15,16 +15,16 @@ export const sendRegistrationMail = async({email, emailType, username, password,
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-              user: process.env.NODEMAILER_USER,
-              pass: process.env.NODEMAILER_PASS,
+                user: process.env.NODEMAILER_USER,
+                pass: process.env.NODEMAILER_PASS,
             }
-          });
+        });
 
         const mailOptions = {
-            from : 'foxstargaming7@gmail.com',
+            from: 'foxstargaming7@gmail.com',
             to: email,
             subject: 'Welcome to symbiSoc Community',
-            html : `<p>Welcome to SIT's Cultural Events Community Portal</p>
+            html: `<p>Welcome to SIT's Cultural Events Community Portal</p>
                     <p>We are glad to have you onboard</p>
                     <p>Sign Up successfull!</p>
                     <p>Credentials for symbiSoc portal:</p>
@@ -54,7 +54,11 @@ export const sendUpcomingEventMail = async ({ emailType, organizingClub, eventNa
                     pass: process.env.NODEMAILER_PASS,
                 }
             });
-
+            const formatDate = () => {
+                const date = new Date(eventDate);
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                return date.toLocaleDateString('en-GB', options);
+            };
             const mailOptions = {
                 from: 'foxstargaming7@gmail.com',
                 to: emailAddresses,
@@ -64,7 +68,7 @@ export const sendUpcomingEventMail = async ({ emailType, organizingClub, eventNa
                         <h3>Event details are as follows: </h3>
                         <p>Event Title: ${eventName}</p>
                         <p>Organising Club: ${organizingClub} Club</p>
-                        <p>Event Date: ${eventDate}</p>
+                        <p>Event Date: ${formatDate()}</p>
                         <p>Event Time: ${eventTime}</p>
                         <p>Event Venue: ${eventVenue}</p>
                         <h3>Speaker Details are as follows:</h3>
