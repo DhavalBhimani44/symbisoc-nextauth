@@ -348,7 +348,7 @@ const CreateEventForm = () => {
                                             <FormItem>
                                                 <FormLabel><div className='lg:text-xl sm:text-lg'>Semester</div></FormLabel>
                                                 <FormControl>
-                                                    <Select {...field} onValueChange={(selectedValue) => form.setValue('ODD', selectedValue)}>
+                                                    <Select {...field} onValueChange={(selectedValue) => form.setValue('semester', selectedValue)}>
                                                         <SelectTrigger className="w-48 md:w-52 lg:w-56 xl:w-60 shadow-lg text-slate-100 bg-slate-900">
                                                             <SelectValue placeholder="Semester" />
                                                         </SelectTrigger>

@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
+  bolder: {
+    fontWeight: "bold",
+  },
 });
 
 export default function PdfDocument({ eventData }) {
@@ -85,7 +88,9 @@ export default function PdfDocument({ eventData }) {
         </Text>
         <View style={styles.section}>
           <Text style={styles.heading}>Details about the event</Text>
-          <Text style={styles.text}>Conduction Date - {formatDate(eventData.date)}</Text>
+          <Text style={styles.text}>
+            <Text style={styles.bolder}>Conduction Date</Text> - {formatDate(eventData.date)}
+          </Text>
           <Text style={styles.text}>Time(Duration) - {eventData.time}</Text>
           <Text style={styles.text}>Venue - {eventData.location}</Text>
           <Text style={styles.text}>Attended by (Batch with Branch )  - {eventData.batch} ({eventData.branch})</Text>

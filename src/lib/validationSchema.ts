@@ -92,5 +92,19 @@ export const eventSchema = z.object({
     speakerDesignation: z
         .string()
         .min(1, 'Speaker Designation required'),
-    
+
+    speakerCompany: z.string().optional(),
+    speakerMail: z.string().optional(),
+    speakerContact: z.string().optional(),
+    faculty: z.string().optional(),
+    facultyMail: z.string().optional(),
+    facultyContact: z.string().optional(),
+    course: z.string().optional(),
+    batch: z.string().optional(),
+    branch: z.string().optional(),
+    academicyear: z.string().optional(),
+    year: z.string().optional(),
+    semester: z.string().optional(),
+    division: z.string().optional(),    
+    copo: z.string().optional(),
 });
