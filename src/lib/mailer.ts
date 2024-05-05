@@ -15,13 +15,13 @@ export const sendRegistrationMail = async({email, emailType, username, password,
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-                user: "f8253bc7b5e15f",
-                pass: "78d4abdf42a779"
+              user: process.env.NODEMAILER_USER,
+              pass: process.env.NODEMAILER_PASS,
             }
-        });
+          });
 
         const mailOptions = {
-            from : '99269dhruvpatel@gmail.com',
+            from : 'foxstargaming7@gmail.com',
             to: email,
             subject: 'Welcome to symbiSoc Community',
             html : `<p>Welcome to SIT's Cultural Events Community Portal</p>
@@ -50,13 +50,13 @@ export const sendUpcomingEventMail = async ({ emailType, organizingClub, eventNa
                 host: "sandbox.smtp.mailtrap.io",
                 port: 2525,
                 auth: {
-                    user: "f8253bc7b5e15f",
-                    pass: "78d4abdf42a779"
+                    user: process.env.NODEMAILER_USER,
+                    pass: process.env.NODEMAILER_PASS,
                 }
             });
 
             const mailOptions = {
-                from: '99269dhruvpatel@gmail.com',
+                from: 'foxstargaming7@gmail.com',
                 to: emailAddresses,
                 subject: `New event posting by: ${organizingClub}`,
                 html: `<h1>Hello symbiSoc community!</h1>
