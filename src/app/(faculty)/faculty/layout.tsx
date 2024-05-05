@@ -3,6 +3,7 @@ import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React, { ReactNode, useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { Menu } from 'lucide-react'
 
 interface LayoutProps {
     children: ReactNode
@@ -38,7 +39,7 @@ const Layout = ({ children }: LayoutProps) => {
                             <Link href='/' className='font-bold'>symbiSoc.</Link>
                         </div>
                         <div className='flex lg:hidden'>
-                            <Button onClick={toggleDropdown}>Menu</Button>
+                            <Menu onClick={toggleDropdown} size={20}/>
                         </div>
                     </div>
                     <div className={`overflow-y-auto overflow-x-hidden flex-grow lg:block xl:block bg-gray-800`}>
