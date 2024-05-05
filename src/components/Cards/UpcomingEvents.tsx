@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '../ui/skeleton';
 
 interface EventProps {
     id: number;
@@ -97,7 +98,7 @@ export default function ViewEventsCard() {
     }
     return (
         <div className="w-full">
-            {loading ? (<div>Loading Events</div>) : events.length === 0 ? (<div className='items-center justify-center text-4xl font-bold'>No Upcoming Events😞. Stay Tuned!😍</div>) : (events.map((event: EventProps, index) => (
+            {loading ? (<Skeleton className="w-full h-[350px] bg-slate-700"/>) : events.length === 0 ? (<div className='flex items-center justify-center text-4xl font-bold'>No Upcoming Events😞. Stay Tuned!😍</div>) : (events.map((event: EventProps, index) => (
                 <Card key={index} className="flex flex-wrap bg-slate-700 text-neutral-950">
                     <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full sm:w-full md:w-full lg:w-1/3 xl:w-1/3 justify-center items-center'>
                         <CardContent className="p-5 flex justify-center items-center">
