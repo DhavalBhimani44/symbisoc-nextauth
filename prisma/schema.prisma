@@ -59,17 +59,49 @@ model Event {
   speaker            String
   speakerDesignation String
   organizingClub     String
+  speakerCompany     String?
+  speakerMail        String?
+  speakerContact     String?
+  faculty            String?
+  facultyContact     String?
+  facultyMail        String?
+  course             String?
+  batch              String?
+  copo               String?
+  semester           semester        @default(ODD)
+  academicyear       academicyear       @default(FIRSTYEAR)
+  division           division   @default(A)
+
   registrations      EventRegistration[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+enum semester {
+  ODD
+  EVEN
+}
+
+enum academicyear {
+  FIRSTYEAR
+  SECONDYEAR
+  THIRDYEAR
+  FOURTHYEAR
+}
+
+enum division {
+  A
+  B
+  C
+  D
+}
+
 model EventRegistration {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   eventId          String   @db.ObjectId
   userId           String   @db.ObjectId
-  registrationDate DateTime @default(now()) // Adding registration date field
+  registrationDate DateTime @default(now())
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
