@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   section: {
-    margin: 10,
-    padding: 10,
+    margin: 8,
+    padding: 8,
     flexGrow: 1,
   },
   heading: {
@@ -61,9 +61,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
-  bolder: {
-    fontWeight: "bold",
-  },
 });
 
 export default function PdfDocument({ eventData }) {
@@ -72,6 +69,7 @@ export default function PdfDocument({ eventData }) {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     return date.toLocaleDateString('en-GB', options);
   };
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -89,7 +87,7 @@ export default function PdfDocument({ eventData }) {
         <View style={styles.section}>
           <Text style={styles.heading}>Details about the event</Text>
           <Text style={styles.text}>
-            <Text style={styles.bolder}>Conduction Date</Text> - {formatDate(eventData.date)}
+            <Text style={{ fontWeight: "bold" }}>Conduction Date</Text> - {formatDate(eventData.date)}
           </Text>
           <Text style={styles.text}>Time(Duration) - {eventData.time}</Text>
           <Text style={styles.text}>Venue - {eventData.location}</Text>
@@ -107,6 +105,16 @@ export default function PdfDocument({ eventData }) {
           <Text style={styles.text}>Semester (ODD/Even) - {eventData.semester}</Text>
           <Text style={styles.text}>Academic Year - {eventData.academicyear}</Text>
         </View>
+        <Text
+          style={styles.pageNumber}
+          render={({ pageNumber, totalPages }) =>
+            `${pageNumber} / ${totalPages}`
+          }
+        />
+      </Page>
+
+      {/* Second Page */}
+      <Page size="A4" style={styles.page}>
         <View style={styles.section}>
           <Text style={styles.heading}>About the Speaker</Text>
           <Text style={styles.text}>Name - {eventData.speaker}</Text>
