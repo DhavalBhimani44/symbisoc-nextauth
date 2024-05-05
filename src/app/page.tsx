@@ -72,14 +72,14 @@ export default function Home() {
               <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
                 <span className="text-sm font-medium text-violet-600">Step 2</span>
                 <span className="text-xl font-semibold">Fill up the form</span>
-                <span className="mt-2 text-zinc-400">Click on the ongoing events and fill up the form for the event you want to register for.</span>
+                <span className="mt-2 text-zinc-400">Click on the view events and just click register. Voila!🥳</span>
               </div>
             </li>
             <li className="md:flex-1">
               <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
                 <span className="text-sm font-medium text-violet-600">Step 3</span>
                 <span className="text-xl font-semibold">Enjoy your event</span>
-                <span className="mt-2 text-zinc-400">It&apos;s that simple!</span>
+                <span className="mt-2 text-zinc-400">It&apos;s that simple!🎉</span>
               </div>
             </li>
           </ol>
