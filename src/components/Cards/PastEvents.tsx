@@ -134,7 +134,7 @@ export default function ViewEventsCard() {
                                     <div className='flex justify-start gap-2'>
                                         {typedSession?.user?.role?.toLowerCase() === 'admin' && (
                                             <PDFDownloadLink
-                                                document={<PdfDocument />}
+                                                document={<PdfDocument eventData={event} />}
                                                 fileName="report.pdf"
                                             >
                                                 {({ loading }) =>

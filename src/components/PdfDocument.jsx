@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PdfDocument() {
+export default function PdfDocument({ eventData }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -79,10 +79,10 @@ export default function PdfDocument() {
           Student Development Program Report on &apos;topic&apos;
         </Text>
         <View style={styles.section}>
-          <Text style={styles.heading}>Details about the event</Text>
-          <Text style={styles.text}>Conduction Date - </Text>
-          <Text style={styles.text}>Time(Duration) - </Text>
-          <Text style={styles.text}>Venue - </Text>
+          <Text style={styles.heading}>Details about the event {eventData.title}</Text>
+          <Text style={styles.text}>Conduction Date - {eventData.date}</Text>
+          <Text style={styles.text}>Time(Duration) - {eventData.time}</Text>
+          <Text style={styles.text}>Venue - {eventData.location}</Text>
           <Text style={styles.text}>Attended by (Batch with Branch )  - </Text>
           <Text style={styles.text}>No. Of. Student attended the session - </Text>
           <Text style={styles.text}>No. Of. Staff attended the session - </Text>
