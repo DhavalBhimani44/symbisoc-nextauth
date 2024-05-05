@@ -17,6 +17,7 @@ import * as z from 'zod';
 type FormSchema = z.infer<typeof FormSchema>
 
 interface User {
+    id: string;
     userId: string;
     PRN: string;
     email: string;
@@ -48,7 +49,6 @@ const UsersTab = () => {
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('/api/user/getUsers');
-                console.log(response.data);
                 setUsers(response.data);
                 setLoading(false);
             } catch (error) {
@@ -107,7 +107,6 @@ const UsersTab = () => {
             }
           });
           toast.success('User deleted successfully');
-          // Update the users state after successful deletion
           setUsers(users.filter(user => user.id !== userId));
         } catch (error) {
           console.error('Error deleting user:', error);

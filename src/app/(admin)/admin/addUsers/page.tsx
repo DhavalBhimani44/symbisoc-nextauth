@@ -176,13 +176,5 @@ export default function AddUsers() {
                 </Card>
             )}
         </div>
-        // <div>
-        //     <div className="flex w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 justify-center items-center">
-        //             <Card className="flex justify-center items-center bg-slate-700 rounded-md py-4 px-2 slide-down">
-        //                 <CardHeader>Add Users</CardHeader>
-
-        //             </Card>
-        //     </div>
-        // </div>
     )
 }
