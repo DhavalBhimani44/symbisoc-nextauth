@@ -22,12 +22,12 @@ interface Session {
         role?: string | null | undefined;
         PRN?: string | null | undefined;
     };
-  }
+}
 
 type CreateEventForm = z.infer<typeof eventSchema>;
 
 const CreateEventForm = () => {
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const typedSession = session as Session;
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false)
     const router = useRouter();
@@ -53,7 +53,14 @@ const CreateEventForm = () => {
             };
             await axios.post('/api/event/createEvent', formattedValues);
             toast.success('Event created successfully');
-            router.push(`/${typedSession?.user?.role?.toLowerCase()}/viewEvents`);
+            const role = typedSession?.user?.role?.toLowerCase();
+            if (role === 'student' || role === 'clubincharge') {
+                router.push(`/viewEvents`);
+            } else if (role === 'admin' || role === 'faculty') {
+                router.push(`/upcomingEvents`);
+            } else {
+                toast.error('You are not authorized to view this page');
+            }
         } catch (error: any) {
             toast.error(error.message)
             console.log("Following error occured: ", error)
