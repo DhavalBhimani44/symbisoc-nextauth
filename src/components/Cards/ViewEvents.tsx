@@ -140,13 +140,13 @@ export default function ViewEventsCard() {
                                     </div>
                                     <div className='flex justify-start gap-2'>
                                         {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
-                                            <Button className="mt-4" variant={"destructive"} isLoading={isLoadingDelete} onClick={() => handleDelete(event.id)}>Delete</Button>
+                                            <Button className="mt-4" variant={"destructive"} onClick={() => handleDelete(event.id)}>Delete</Button>
                                         )}
                                         {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'student') && (
-                                            <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
+                                            <Button className="mt-4" variant={"secondary"} onClick={() => handleRegister(event.id)}>Register</Button>
                                         )}
                                         {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'faculty' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
-                                            <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRoute(event.id)}>View Registration</Button>
+                                            <Button className="mt-4" variant={"secondary"} onClick={() => handleRoute(event.id)}>View Registration</Button>
                                         )}
                                     </div>
                                 </div>

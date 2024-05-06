@@ -165,7 +165,7 @@ export default function ViewEventsCard() {
                                             </PDFDownloadLink>
                                         )}
                                         {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'faculty' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
-                                            <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRoute(event.id)}>View Registration</Button>
+                                            <Button className="mt-4" variant={"secondary"} onClick={() => handleRoute(event.id)}>View Registration</Button>
                                         )}
                                     </div>
                                 </div>
