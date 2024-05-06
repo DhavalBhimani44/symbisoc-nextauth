@@ -1,7 +1,10 @@
 import nodemailer from 'nodemailer';
 import prisma from "@/lib/db";
+import fs from 'fs';
 
 export const sendRegistrationMail = async ({ email, emailType, username, password, userId }: any) => {
+    const { promisify } = require('util');
+    const readFileAsync = promisify(fs.readFile);
     try {
         if (emailType === "SIGNUP") {
             await prisma.user.findUnique({
@@ -10,6 +13,8 @@ export const sendRegistrationMail = async ({ email, emailType, username, passwor
                 },
             });
         }
+        const htmlTemplate = await readFileAsync('/copy/symbisoc-nextauth/src/components/Mail/index.html', 'utf-8');
+
 
         var transport = nodemailer.createTransport({
             host: "sandbox.smtp.mailtrap.io",
@@ -24,13 +29,7 @@ export const sendRegistrationMail = async ({ email, emailType, username, passwor
             from: 'foxstargaming7@gmail.com',
             to: email,
             subject: 'Welcome to symbiSoc Community',
-            html: `<p>Welcome to SIT's Cultural Events Community Portal</p>
-                    <p>We are glad to have you onboard</p>
-                    <p>Sign Up successfull!</p>
-                    <p>Credentials for symbiSoc portal:</p>
-                    <p>Username: ${username}</p>
-                    <p>Email : ${email}</p>                    
-                    <p>Password : ${password}</p>`
+            html: htmlTemplate.replace('{{name}}', username).replace('{{username}}', username).replace('{{email}}', email).replace('{{password}}', password),
         }
 
         const mailresponse = await transport.sendMail(mailOptions);
