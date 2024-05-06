@@ -53,6 +53,8 @@ export default function ViewEventsCard() {
     const { data: session } = useSession()
     const typedSession = session as Session
     const [loading, setLoading] = useState(true);    
+    const [cnt,setCnt] = useState(null);
+    var ct:number;
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -76,11 +78,21 @@ export default function ViewEventsCard() {
     };
     const handleRoute = async (id: number) => {
         console.log("clicked");
+        
         if (typedSession?.user?.role && id) {
             router.push(`/${typedSession.user.role.toLowerCase()}/eventAttendees/${id}`);
         } else {
             console.error("Invalid session or ID");
         }
+    }
+    const handleCount = async(id: number) => {
+        const res = await axios.get('/api/event/eventRegistration');
+        const allregUsers = res.data;
+        const filteredUsers = id ? allregUsers.filter((user) => user.eventId === id) : [];
+        setCnt(filteredUsers.length); 
+        ct=filteredUsers.length;     
+        console.log("up cnt: ", ct);  
+        console.log("count: ", filteredUsers.length);
     }
     const handleRegister = async (eventId: number) => {
         setIsLoadingButton(true)
@@ -153,11 +165,12 @@ export default function ViewEventsCard() {
                                     <CardDescription className='text-slate-200 mt-2 text-md flex gap-1'>
                                         📢: {event.speaker}({event.speakerDesignation})
                                     </CardDescription>
-                                    <div className='flex justify-start gap-2'>
+                                    <div className='flex flex-wrap justify-start gap-2'>
                                         {typedSession?.user?.role?.toLowerCase() === 'admin' && (
                                             <PDFDownloadLink
-                                                document={<PdfDocument eventData={event} />}
+                                                document={<PdfDocument eventData={event} count={ct}/>}
                                                 fileName="report.pdf"
+                                                onClick={() => handleCount(event.id)}
                                             >
                                                 {({ loading }) =>
                                                     loading ? <Button className='items-center justify-center'><Loader2 className='animate-spin mt-4 items-center' size={18} /></Button> : <Button className='mt-4'>Download Report</Button>
