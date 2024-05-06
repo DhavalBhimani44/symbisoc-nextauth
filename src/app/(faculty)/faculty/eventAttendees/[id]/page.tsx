@@ -30,6 +30,7 @@ const Page = ({ params }: any) => {
     const [loading, setLoading] = useState(true);
     const [isLoadingAttended, setIsLoadingAttended] = useState(false)
     const [clickedUserId, setClickedUserId] = useState<number | null>(null);
+    const [cnt,setCnt] = useState();
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -38,6 +39,7 @@ const Page = ({ params }: any) => {
                 const allregUsers = response.data;
                 const filteredUsers = eventId ? allregUsers.filter((user: User) => user.eventId === eventId) : [];
                 setUsers(filteredUsers);
+                setCnt(filteredUsers.length);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching events:", error);
@@ -91,12 +93,16 @@ const Page = ({ params }: any) => {
             <div className="flex justify-between mb-8 mt-8 top-14 sticky rounded-md z-10 w-full">
             {loading ? (
                         <Skeleton className="w-full h-[350px] bg-slate-700"/>
-                    ) : (<Table className="w-full rounded-lg text-neutral-950 text-sm sm:text-sm md:text-sm lg:text-md xl:text-md">
+                    ) : (
+                        <div className="flex flex-col justify-center items-center w-full">
+                            <div className="flex text-3xl font-bold text-slate-200 w-full pb-2">Total registrations: {cnt}</div>
+                            <div className="flex justify-center items-center w-full">
+                    <Table className="w-full rounded-lg text-neutral-950 text-sm sm:text-sm md:text-sm lg:text-md xl:text-md">
                     <TableBody className="w-full rounded-lg">
                         <TableRow className="text-gray-200 hover:bg-neutral-950 rounded-lg bg-neutral-900">
                             <TableCell className="w-1/4 rounded-tl-lg">userId</TableCell>
                             <TableCell className="w-1/4 rounded-tr-lg">Action</TableCell>
-                            <TableCell className="w-1/4 rounded-tr-lg">Status</TableCell>
+                            <TableCell className="w-1/4 rounded-tr-lg">Status</TableCell>                            
                         </TableRow>
                         {users.map((user:User, index) => (
                             <TableRow key={index} className="text-gray-900 hover:bg-neutral-300 rounded-lg bg-neutral-200">
@@ -110,7 +116,7 @@ const Page = ({ params }: any) => {
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>)}
+                </Table></div></div>)}
             </div>
         </div>
     )
