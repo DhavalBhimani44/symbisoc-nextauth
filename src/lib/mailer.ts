@@ -13,7 +13,7 @@ export const sendRegistrationMail = async ({ email, emailType, username, passwor
                 },
             });
         }
-        const htmlTemplate = await readFileAsync('/copy/symbisoc-nextauth/src/components/Mail/index.html', 'utf-8');
+        const htmlTemplate = await readFileAsync(process.env.HTML_PATH, 'utf-8');
 
 
         var transport = nodemailer.createTransport({
