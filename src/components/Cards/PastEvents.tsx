@@ -52,7 +52,7 @@ export default function ViewEventsCard() {
     const [events, setEvents] = useState([]);
     const { data: session } = useSession()
     const typedSession = session as Session
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);    
 
     useEffect(() => {
         const fetchEvents = async () => {
