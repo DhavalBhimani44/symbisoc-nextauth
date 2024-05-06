@@ -34,39 +34,39 @@ const SignInForm = () => {
             role: 'STUDENT',
         },
     });
-    
+
     useEffect(() => {
         setIsVisible(true);
     }, []);
 
     const onSubmit = async (values: z.infer<typeof signInSchema>) => {
         setIsLoading(true)
-        await signIn('credentials',{
-            email: values.email, 
+        await signIn('credentials', {
+            email: values.email,
             password: values.password,
             role: values.role,
             redirect: false
         })
-        .then((callback) => {
-            if (callback?.error) {
-                toast.error(callback.error)
-            }
-            
-            if (callback?.ok && !callback?.error) {
-                toast.success('Logged in successfully!')
-                const roleRedirects: {[key: string]: string} = {
-                    STUDENT: "/student/profile",
-                    FACULTY: "/faculty/profile",
-                    CLUBINCHARGE: "/clubincharge/profile",
-                    ADMIN: "/admin/profile",
-                };
-                const redirectPath = roleRedirects[values.role] || "/";
-                router.push(redirectPath);            
-            }
-        })
-        .finally(() => setIsLoading(false))
+            .then((callback) => {
+                if (callback?.error) {
+                    toast.error(callback.error)
+                }
+
+                if (callback?.ok && !callback?.error) {
+                    toast.success('Logged in successfully!')
+                    const roleRedirects: { [key: string]: string } = {
+                        STUDENT: "/student/profile",
+                        FACULTY: "/faculty/profile",
+                        CLUBINCHARGE: "/clubincharge/profile",
+                        ADMIN: "/admin/profile",
+                    };
+                    const redirectPath = roleRedirects[values.role] || "/";
+                    router.push(redirectPath);
+                }
+            })
+            .finally(() => setIsLoading(false))
     };
-    
+
     return (
         <div className={`w-fit lg:w-1/4 xl:w-1/4 m-auto px-4 sm:px-2 md:px-4 lg:px-4 xl:px-4 py-2 flex flex-col justify-center items-center shadow-lg z-1 bg-neutral-800 rounded-lg`}>
             <Form {...form}>
@@ -136,6 +136,11 @@ const SignInForm = () => {
                         <Button isLoading={isLoading} className='w-max text-md shadow-indigo-500/50 hover:shadow-indigo-500/50 shadow-md hover:shadow-lg bg-gradient-to-br from-fuchsia-500 to-cyan-500 hover:bg-gradient-to-tl hover:from-fuchsia-500 hover:to-cyan-500 transition duration-300 ease-in-out' type='submit'>
                             Sign in
                         </Button>
+                    </div>
+                    <div className='text-xs pt-5'>
+                        <Link className='text-blue-500 hover:underline' href='#'>
+                            Forgotten Password?
+                        </Link>
                     </div>
                 </form>
                 <div className='mx-auto my-4 flex w-3/4 text-gray-200 items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400'>
