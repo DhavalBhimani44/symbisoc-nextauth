@@ -9,6 +9,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Page = ({ params }: any) => {
     const eventId = params?.id;
@@ -75,14 +76,14 @@ const Page = ({ params }: any) => {
                             <TableCell className="w-1/4 rounded-tr-lg">Action</TableCell>
                             <TableCell className="w-1/4 rounded-tr-lg">Status</TableCell>
                         </TableRow>
-                        {users.map((user) => (
-                            <TableRow className="text-gray-900 hover:bg-neutral-300 rounded-lg bg-neutral-200">
+                        {users.map((user, index) => (
+                            <TableRow key={index} className="text-gray-900 hover:bg-neutral-300 rounded-lg bg-neutral-200">
                                 <TableCell className="w-1/4">{user.id}</TableCell>
                                 <TableCell className="w-1/4">
                                     <Button onClick={() => handleAttended(user.id)}>Mark Attended</Button>
                                 </TableCell>
                                 <TableCell className="w-1/4">
-                                    {attendedUsers.has(user.id) ? "Attended" : "Not Attended"}
+                                    {attendedUsers.has(user.id) ? <FaCheckCircle /> : "Not Attended"}
                                 </TableCell>
                             </TableRow>
                         ))}
