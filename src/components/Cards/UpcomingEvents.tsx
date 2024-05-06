@@ -58,6 +58,14 @@ export default function ViewEventsCard() {
         const options = { day: 'numeric', month: 'long', year: 'numeric' } as const;
         return date.toLocaleDateString('en-GB', options);
     };
+    const handleRoute = async (id: number) => {
+        console.log("clicked");
+        if (typedSession?.user?.role && id) {
+            router.push(`/${typedSession.user.role.toLowerCase()}/eventAttendees/${id}`);
+        } else {
+            console.error("Invalid session or ID");
+        }
+    }
     const handleRegister = async (eventId: number) => {
         setIsLoadingButton(true)
         try {
@@ -135,6 +143,9 @@ export default function ViewEventsCard() {
                                         )}
                                         {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'student') && (
                                             <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRegister(event.id)}>Register</Button>
+                                        )}
+                                        {(typedSession?.user?.role?.toLowerCase() === 'clubincharge' || typedSession?.user?.role?.toLowerCase() === 'faculty' || typedSession?.user?.role?.toLowerCase() === 'admin') && (
+                                            <Button className="mt-4" variant={"secondary"} isLoading={isLoadingButton} onClick={() => handleRoute(event.id)}>View Registration</Button>
                                         )}
                                     </div>
                                 </div>
