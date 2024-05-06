@@ -63,13 +63,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PdfDocument({ eventData }) {
+export default function PdfDocument({ eventData, count }) {
   const formatDate = () => {
     const date = new Date(eventData.date);
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     return date.toLocaleDateString('en-GB', options);
   };
-
+  console.log("count pdf: ", count);
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -92,7 +92,7 @@ export default function PdfDocument({ eventData }) {
           <Text style={styles.text}>Time(Duration) - {eventData.time}</Text>
           <Text style={styles.text}>Venue - {eventData.location}</Text>
           <Text style={styles.text}>Attended by (Batch with Branch )  - {eventData.batch} ({eventData.branch})</Text>
-          <Text style={styles.text}>No. Of. Student attended the session - </Text>
+          <Text style={styles.text}>No. Of. Student attended the session - {count}</Text>
           <Text style={styles.text}>No. Of. Staff attended the session - </Text>
           <Text style={styles.text}>Arranged by (Faculty name with mail id and contact details) - {eventData.faculty} {eventData.facultyMail}/{eventData.facultyContact}</Text>
         </View>
